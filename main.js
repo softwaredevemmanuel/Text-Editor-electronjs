@@ -1,6 +1,6 @@
 const electron = require('electron');
 const fs = require('fs');
-const { app, BrowserWindow, ipcMain, dialog } = electron;
+const { app, BrowserWindow, ipcMain, dialog, Menu } = electron;
 let win
 
 let filePath = undefined
@@ -14,6 +14,8 @@ app.on('ready', () => {
         }
     })
     win.loadFile('index.html')
+    const menu = Menu.buildFromTemplate(menuTemplate)
+    Menu.setApplicationMenu(menu)
 });
 
 ipcMain.on('save', (event, text) => {
@@ -42,4 +44,36 @@ function writeToFile(data){
         }
     });
 }
+
+const menuTemplate = [
+    ...(process.platform == 'darwin' ? [{
+        label: app.getName(),
+        submenu : [
+            {role: 'about'}
+        ]
+    }] : []),
+  
+    { 
+        label: "File",
+        submenu:[
+            {
+                label: "Save",
+                click(){
+                    console.log("Save from menu")
+                }
+            },
+            {
+                label: "Save As",
+                click(){
+                    console.log("Save As from menu")
+                }
+            },
+
+        ]
+    },
+    {
+        // custom edit menu from electron
+        role: 'editMenu'
+    }
+]
 
