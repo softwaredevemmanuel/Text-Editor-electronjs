@@ -3,6 +3,7 @@ const fs = require('fs');
 const { app, BrowserWindow, ipcMain, dialog } = electron;
 let win
 
+let filePath = undefined
 app.on('ready', () => {
     console.log("app is tready");
     win = new BrowserWindow({
@@ -16,21 +17,30 @@ app.on('ready', () => {
 });
 
 ipcMain.on('save', (event, text) => {
-    // show dialog
-    const fullpath = dialog.showSaveDialogSync(win, { defaultPath: 'filename.txt' });
 
-    if (fullpath) {
-        console.log(fullpath);
-        fs.writeFile(fullpath, text, (err) => {
+    if (filePath === undefined) {
+        // show dialog
+        const fullpath = dialog.showSaveDialogSync(win, { defaultPath: 'filename.txt' });
+        if (fullpath) {
+            filePath = fullpath
+            fs.writeFile(filePath, text, (err) => {
+                if (err) {
+                    console.log('There was an error', err);
+                } else {
+                    console.log('File has been saved');
+                }
+            });
+        }
+
+    }else{
+        fs.writeFile(filePath, text, (err) => {
             if (err) {
                 console.log('There was an error', err);
             } else {
                 console.log('File has been saved');
             }
         });
-    } else {
-        console.log('Save operation canceled by the user');
     }
-});
 
+});
 
