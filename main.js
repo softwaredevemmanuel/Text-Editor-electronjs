@@ -79,6 +79,9 @@ const menuTemplate = [
     {
         // custom edit menu from electron
         role: 'editMenu'
+    },
+    {
+        role: 'viewMenu'
     }
 ]
 
