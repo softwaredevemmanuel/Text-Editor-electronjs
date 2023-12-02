@@ -59,12 +59,15 @@ const menuTemplate = [
             {
                 label: "Save",
                 click(){
+                    win.webContents.send('save-clicked')
                     console.log("Save from menu")
                 }
             },
             {
                 label: "Save As",
                 click(){
+                    filePath = undefined
+                    win.webContents.send('save-clicked')
                     console.log("Save As from menu")
                 }
             },
