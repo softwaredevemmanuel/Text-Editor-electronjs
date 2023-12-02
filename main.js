@@ -38,6 +38,7 @@ function writeToFile(data){
             console.log('There was an error', err);
         } else {
             console.log('File has been saved');
+            win.webContents.send('saved', 'success')
         }
     });
 }

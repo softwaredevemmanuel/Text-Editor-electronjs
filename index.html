@@ -74,6 +74,15 @@
             ipcRenderer.send('save', text)
             // ipcRenderer.send('delete', text)
         };
+
+        ipcRenderer.on('saved', (event, results) =>{
+            if(results == 'success'){
+                console.log('Message saved')
+
+            }else{
+                console.log('Error saving message')
+            }
+        })
     </script>
   </body>
 </html>
