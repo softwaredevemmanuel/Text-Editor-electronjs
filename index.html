@@ -36,7 +36,7 @@
         
            
         
-            <button class="btn btn-default  pull-right">
+            <button class="btn btn-default  pull-right" onclick="saveText()">
               <span class="icon icon-download icon-text"></span>
               Save
             </button>
@@ -64,6 +64,11 @@
             textarea.style.fontSize = `${--defaultFontSize}px`
 
 
+        }
+
+        function saveText(){
+            let text = textarea.value
+            console.log(text)
         }
     </script>
   </body>
