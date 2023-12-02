@@ -23,24 +23,22 @@ ipcMain.on('save', (event, text) => {
         const fullpath = dialog.showSaveDialogSync(win, { defaultPath: 'filename.txt' });
         if (fullpath) {
             filePath = fullpath
-            fs.writeFile(filePath, text, (err) => {
-                if (err) {
-                    console.log('There was an error', err);
-                } else {
-                    console.log('File has been saved');
-                }
-            });
+            writeToFile(text)
         }
 
     }else{
-        fs.writeFile(filePath, text, (err) => {
-            if (err) {
-                console.log('There was an error', err);
-            } else {
-                console.log('File has been saved');
-            }
-        });
+       writeToFile(text)
     }
 
 });
+
+function writeToFile(data){
+    fs.writeFile(filePath, data, (err) => {
+        if (err) {
+            console.log('There was an error', err);
+        } else {
+            console.log('File has been saved');
+        }
+    });
+}
 
